@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import type { Book } from "../types/Book.ts";
+import type { Book } from "../../types/Book.ts";
 import React from "react";
 import BookCard from "./BookCard.tsx";
-import { getBooks } from "../services/books.ts";
+import { getBooks } from "../../services/books.ts";
 
 interface BookListProps {
     onAddToCart?: (book: Book) => void;
@@ -40,12 +40,13 @@ function BookList({onAddToCart}: BookListProps) {
     return (
         <div>
           <h2>Available Books</h2>
-          <input placeholder="Search for a book" onChange={event => onBookSearch(event)}/>
+          <input placeholder="Search for a book" style={{borderRadius: "10px"}} onChange={event => onBookSearch(event)}/>
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
               gap: "10px",
+              marginTop: "10px",
             }}
           >
             {books.map((book) => (

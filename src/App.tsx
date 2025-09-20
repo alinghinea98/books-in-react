@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import './App.css'
-import BookList from './components/BookList.tsx';
+import BookList from './components/book/BookList.tsx';
 import type { Book } from './types/Book.ts';
-import Cart from './components/Cart.tsx';
-import CheckoutDialog from './components/CheckoutDialog.tsx';
+import Cart from './components/cart/Cart.tsx';
+import CheckoutDialog from './components/modals/CheckoutDialog.tsx';
 
 function App() {
   const [cart, setCart] = useState<Book[]>([]);
