@@ -1,5 +1,5 @@
 import { Modal, Form, Input } from "antd";
-import React from "react";
+import React, { useState } from "react";
 
 interface CheckoutDialogProps {
   isOpen: boolean;
@@ -9,6 +9,7 @@ interface CheckoutDialogProps {
 
 function CheckoutDialog({ isOpen, onClose, onConfirm }: CheckoutDialogProps) {
   const [form] = Form.useForm();
+  const [isValid, setIsValid] = useState(false);
 
   const handleOk = async () => {
     try {
@@ -25,6 +26,12 @@ function CheckoutDialog({ isOpen, onClose, onConfirm }: CheckoutDialogProps) {
     form.resetFields();
   }
 
+  const handleValuesChange = () => {
+    const hasErrors = form.getFieldsError().some(({ errors }) => errors.length > 0);
+    const allTouched = form.isFieldsTouched(true);
+    setIsValid(allTouched && !hasErrors);
+  };
+
   return (
     <Modal
       title="Checkout"
@@ -34,13 +41,9 @@ function CheckoutDialog({ isOpen, onClose, onConfirm }: CheckoutDialogProps) {
       okText="Confirm"
       cancelText="Cancel"
       closable
-      okButtonProps={{
-        disabled:
-        !form.isFieldsTouched(true) ||
-        form.getFieldsError().some(({ errors }) => errors.length > 0), 
-      }}
+      okButtonProps={{ disabled: !isValid }}
     >
-      <Form form={form} layout="vertical">
+      <Form form={form} layout="vertical" onValuesChange={handleValuesChange}>
         <Form.Item
           label="Name"
           name="name"

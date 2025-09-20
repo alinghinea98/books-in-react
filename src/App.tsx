@@ -1,39 +1,27 @@
-import React, { useState } from 'react'
-import './App.css'
-import BookList from './components/book/BookList.tsx';
-import type { Book } from './types/Book.ts';
-import Cart from './components/cart/Cart.tsx';
-// import CheckoutDialog from './components/modals/CheckoutDialog.tsx';
-import AntCheckoutDialog from './components/modals/AntCheckoutDialog.tsx';
+import { Routes, Route, Link } from "react-router-dom";
+import BooksPage from "./pages/BooksPage.tsx";
+import ProfilePage from "./pages/ProfilePage.tsx";
+import SettingsPage from "./pages/SettingsPage.tsx";
+import React from "react";
 
 function App() {
-  const [cart, setCart] = useState<Book[]>([]);
-  const [isCheckoutOpen, setCheckoutOpen] = useState(false);
-
-  const handleAddToCart = (book: Book) => {
-    setCart((prevCart) => [...prevCart, book]);
-  };
-  const handleRemoveBook = (book: Book) => {
-    setCart((prevCart) => prevCart.filter((b) => b.id !== book.id));
-  }
-  const handleCheckoutConfirm = (data: { name: string; address: string }) => {
-    // simulate API call
-    setTimeout(() => {
-      alert(`Order placed by ${data.name}!\nBooks: ${cart.map(b => b.title).join(", ")}\nShipping to: ${data.address}`);
-      setCart([]);
-      setCheckoutOpen(false);
-    }, 1000);
-  };
-
   return (
     <div style={{ padding: "20px" }}>
       <h1>📚 Book Dashboard</h1>
-      <BookList onAddToCart={handleAddToCart} />
-      <Cart items={cart} onRemoveBook={handleRemoveBook} onCheckout={() => setCheckoutOpen(true)} />
-      {/* <CheckoutDialog onConfirm={handleCheckoutConfirm} onClose={() => setCheckoutOpen(false)} isOpen={isCheckoutOpen}/> */}
-      <AntCheckoutDialog onConfirm={handleCheckoutConfirm} onClose={() => setCheckoutOpen(false)} isOpen={isCheckoutOpen} />
+
+      <nav style={{ marginBottom: "20px" }}>
+        <Link to="/" style={{ marginRight: "10px" }}>Books</Link>
+        <Link to="/profile" style={{ marginRight: "10px" }}>Profile</Link>
+        <Link to="/settings">Settings</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<BooksPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+      </Routes>
     </div>
   );
 }
 
-export default App
+export default App;
