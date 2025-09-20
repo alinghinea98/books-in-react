@@ -3,7 +3,8 @@ import './App.css'
 import BookList from './components/book/BookList.tsx';
 import type { Book } from './types/Book.ts';
 import Cart from './components/cart/Cart.tsx';
-import CheckoutDialog from './components/modals/CheckoutDialog.tsx';
+// import CheckoutDialog from './components/modals/CheckoutDialog.tsx';
+import AntCheckoutDialog from './components/modals/AntCheckoutDialog.tsx';
 
 function App() {
   const [cart, setCart] = useState<Book[]>([]);
@@ -23,13 +24,14 @@ function App() {
       setCheckoutOpen(false);
     }, 1000);
   };
-    
+
   return (
     <div style={{ padding: "20px" }}>
       <h1>📚 Book Dashboard</h1>
-      <BookList onAddToCart={handleAddToCart}/>
-      <Cart items={cart} onRemoveBook={handleRemoveBook} onCheckout={() => setCheckoutOpen(true)}/>
-      <CheckoutDialog onConfirm={handleCheckoutConfirm} onClose={() => setCheckoutOpen(false)} isOpen={isCheckoutOpen}/>
+      <BookList onAddToCart={handleAddToCart} />
+      <Cart items={cart} onRemoveBook={handleRemoveBook} onCheckout={() => setCheckoutOpen(true)} />
+      {/* <CheckoutDialog onConfirm={handleCheckoutConfirm} onClose={() => setCheckoutOpen(false)} isOpen={isCheckoutOpen}/> */}
+      <AntCheckoutDialog onConfirm={handleCheckoutConfirm} onClose={() => setCheckoutOpen(false)} isOpen={isCheckoutOpen} />
     </div>
   );
 }
