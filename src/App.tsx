@@ -9,7 +9,7 @@ function App() {
     <div style={{ padding: "20px" }}>
       <h1>📚 Book Dashboard</h1>
 
-      <nav style={{ marginBottom: "20px" }}>
+      <nav style={{ marginBottom: "20px"}}>
         <Link to="/" style={{ marginRight: "10px" }}>Books</Link>
         <Link to="/profile" style={{ marginRight: "10px" }}>Profile</Link>
         <Link to="/settings">Settings</Link>
