@@ -38,7 +38,11 @@ function BookList({onAddToCart}: BookListProps) {
     })
 
     return (
-        <div>
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center"
+        }}>
           <h2>Available Books</h2>
           <input placeholder="Search for a book" style={{borderRadius: "10px"}} onChange={event => onBookSearch(event)}/>
           <div

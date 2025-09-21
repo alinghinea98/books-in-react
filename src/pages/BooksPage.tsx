@@ -2,16 +2,13 @@ import { useState } from "react";
 import BookList from "../components/book/BookList.tsx";
 import Cart from "../components/cart/Cart.tsx";
 import AntCheckoutDialog from "../components/modals/AntCheckoutDialog.tsx";
-import type { Book } from "../types/Book.ts";
 import React from "react";
+import { useCart } from "../contexts/CartContext.tsx";
+
 
 function BooksPage() {
-  const [cart, setCart] = useState<Book[]>([]);
+  const { cart, addToCart, removeFromCart, clearCart } = useCart();
   const [isCheckoutOpen, setCheckoutOpen] = useState(false);
-
-  const handleAddToCart = (book: Book) => setCart((prev) => [...prev, book]);
-  const handleRemoveBook = (book: Book) =>
-    setCart((prev) => prev.filter((b) => b.id !== book.id));
 
   const handleCheckoutConfirm = (data: { name: string; address: string }) => {
     setTimeout(() => {
@@ -20,7 +17,7 @@ function BooksPage() {
           .map((b) => b.title)
           .join(", ")}\nShipping to: ${data.address}`
       );
-      setCart([]);
+      clearCart();
       setCheckoutOpen(false);
     }, 1000);
   };
@@ -28,10 +25,10 @@ function BooksPage() {
   return (
     <div>
       <h2>Books</h2>
-      <BookList onAddToCart={handleAddToCart} />
+      <BookList onAddToCart={addToCart} />
       <Cart
         items={cart}
-        onRemoveBook={handleRemoveBook}
+        onRemoveBook={removeFromCart}
         onCheckout={() => setCheckoutOpen(true)}
       />
       <AntCheckoutDialog

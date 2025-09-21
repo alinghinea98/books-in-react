@@ -1,5 +1,6 @@
 import React from "react";
 import type { Book } from "../../types/Book.ts";
+import { useCart } from "../../contexts/CartContext.tsx";
 
 interface CartProps {
     items: Book[];
@@ -8,6 +9,8 @@ interface CartProps {
 }
 
 function Cart({ items, onRemoveBook, onCheckout }: CartProps) {
+    const { cart, removeFromCart, clearCart } = useCart();
+
     return (
         <div
             style={{
@@ -30,7 +33,7 @@ function Cart({ items, onRemoveBook, onCheckout }: CartProps) {
                                 gap: "10px"
                             }}>
                                 {book.title} – {book.author}
-                                <p style={{ cursor: "pointer" }} onClick={() => onRemoveBook && onRemoveBook(book)}>❌</p>
+                                <p style={{ cursor: "pointer" }} onClick={() => removeFromCart && removeFromCart(book)}>❌</p>
                             </li>
                         ))}
                     </ul>

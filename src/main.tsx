@@ -5,11 +5,14 @@ import App from './App.tsx'
 import "antd/dist/reset.css"
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { CartProvider } from './contexts/CartContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <CartProvider>
+        <App />
+      </CartProvider>
     </BrowserRouter>
   </StrictMode>,
 )
