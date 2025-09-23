@@ -22,7 +22,7 @@ function ProfilePage() {
   };
 
   return (
-    <Card title="Login" style={{ maxWidth: 400 }}>
+    <Card title="Login" style={{ minWidth: 400 }}>
       <Form
         layout="vertical"
         onFinish={handleLogin}

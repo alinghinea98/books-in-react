@@ -6,7 +6,14 @@ import React from "react";
 
 function App() {
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ 
+      padding: "20px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100vw",
+       }}>
       <h1>📚 Book Dashboard</h1>
 
       <nav style={{ marginBottom: "20px"}}>

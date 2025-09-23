@@ -1,13 +1,18 @@
 import React from "react";
+import { useTheme } from "../contexts/ThemeContext.tsx";
+import { Card, Switch } from "antd";
 
 function SettingsPage() {
-    return (
-      <div>
-        <h2>Settings</h2>
-        <p>Here you can configure your preferences.</p>
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <Card title="Settings" style={{ minWidth: 400 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <span>Dark Mode</span>
+        <Switch checked={theme === "dark"} onChange={toggleTheme} />
       </div>
-    );
-  }
-  
-  export default SettingsPage;
-  
+    </Card>
+  );
+}
+
+export default SettingsPage;
