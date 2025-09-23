@@ -4,10 +4,13 @@ import Cart from "../components/cart/Cart.tsx";
 import AntCheckoutDialog from "../components/modals/AntCheckoutDialog.tsx";
 import React from "react";
 import { useCart } from "../contexts/CartContext.tsx";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import { cartAtom } from "../state/cartAtom.ts";
 
 
 function BooksPage() {
-  const { cart, addToCart, removeFromCart, clearCart } = useCart();
+  const cart = useRecoilValue(cartAtom);
+  const resetCart = useResetRecoilState(cartAtom);
   const [isCheckoutOpen, setCheckoutOpen] = useState(false);
 
   const handleCheckoutConfirm = (data: { name: string; address: string }) => {
@@ -17,7 +20,7 @@ function BooksPage() {
           .map((b) => b.title)
           .join(", ")}\nShipping to: ${data.address}`
       );
-      clearCart();
+      resetCart(); // golește cart-ul
       setCheckoutOpen(false);
     }, 1000);
   };
@@ -25,12 +28,8 @@ function BooksPage() {
   return (
     <div>
       <h2>Books</h2>
-      <BookList onAddToCart={addToCart} />
-      <Cart
-        items={cart}
-        onRemoveBook={removeFromCart}
-        onCheckout={() => setCheckoutOpen(true)}
-      />
+      <BookList/>
+      <Cart onCheckout={() => setCheckoutOpen(true)} />
       <AntCheckoutDialog
         isOpen={isCheckoutOpen}
         onClose={() => setCheckoutOpen(false)}

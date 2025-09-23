@@ -3,6 +3,8 @@ import type { Book } from "../../types/Book.ts";
 import React from "react";
 import BookCard from "./BookCard.tsx";
 import { getBooks } from "../../services/books.ts";
+import { useRecoilState } from "recoil";
+import { cartAtom } from "../../state/cartAtom.ts";
 
 interface BookListProps {
     onAddToCart?: (book: Book) => void;
@@ -12,6 +14,7 @@ function BookList({onAddToCart}: BookListProps) {
     const [books, setBooks] = useState<Book[]>([]);
     const [completeBooksList, setCompleteBooksList] = useState<Book[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [cart, setCart] = useRecoilState(cartAtom);
 
     useEffect(() => {
         getBooks().then((fetchedBooks) => {
@@ -37,6 +40,13 @@ function BookList({onAddToCart}: BookListProps) {
         setLoading(false);
     })
 
+    const handleAdd = (book: Book) => {
+        setCart((prev) => [...prev, book]);
+        if (onAddToCart) {
+            onAddToCart(book);
+        }
+    };
+
     return (
         <div style={{
           display: "flex",
@@ -54,7 +64,7 @@ function BookList({onAddToCart}: BookListProps) {
             }}
           >
             {books.map((book) => (
-              <BookCard key={book.id} book={book} onAddToCart={onAddToCart}/>
+              <BookCard key={book.id} book={book} onAddToCart={handleAdd}/>
             ))}
           </div>
           {!books.length && !loading && <p>No books found 😭</p>}
