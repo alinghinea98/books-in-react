@@ -1,9 +1,8 @@
+import React from "react";
 import { useState } from "react";
 import BookList from "../components/book/BookList.tsx";
 import Cart from "../components/cart/Cart.tsx";
 import AntCheckoutDialog from "../components/modals/AntCheckoutDialog.tsx";
-import React from "react";
-import { useCart } from "../contexts/CartContext.tsx";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { cartAtom } from "../state/cartAtom.ts";
 
